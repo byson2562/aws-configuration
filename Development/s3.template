@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  S3Bucket481139621742OperationManual:
+    Type: AWS::S3::Bucket
+    Properties:
+      AccessControl: PublicRead
+      BucketName: 481139621742-operation-manual
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  S3BucketPolicy481139621742OperationManual:
+    Type: AWS::S3::BucketPolicy
+    Properties: 
+      Bucket: !Ref S3Bucket481139621742OperationManual
+      PolicyDocument: 
+          Statement: 
+            - Action: 
+                - "s3:GetObject"
+              Effect: "Allow"
+              Resource: 
+                  - "arn:aws:s3:::481139621742-operation-manual/*"
+              Principal: "*"

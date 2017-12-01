@@ -1,0 +1,19 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  EC2InstanceDevelopment0001:
+    Type: AWS::EC2::Instance
+    Properties: 
+      BlockDeviceMappings: 
+        - DeviceName: /dev/xvda
+          Ebs: 
+            VolumeSize: 8
+            VolumeType: gp2
+      ImageId: ami-2803ac4e
+      InstanceType: t2.micro
+      KeyName: my-key
+      SecurityGroupIds: 
+        - sg-46630a20
+      SubnetId: subnet-0bca3442
+      Tags: 
+        - Key: Name
+          Value: EC2::Instance::Development0001

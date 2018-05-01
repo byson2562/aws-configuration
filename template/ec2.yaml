@@ -14,6 +14,10 @@ Resources:
       SecurityGroupIds: 
         - sg-46630a20
       SubnetId: subnet-0bca3442
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: true
+          DeviceIndex: 0
+          SubnetId: subnet-0bca3442
       Tags: 
         - Key: Name
           Value: EC2::Instance::Development0001

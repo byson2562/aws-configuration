@@ -1,23 +1,46 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  EC2InstanceDevelopment0001:
-    Type: AWS::EC2::Instance
+  # RDSDBInstanceDevelopment0001:
+  #   Type: AWS::RDS::DBInstance
+  #   Properties: 
+  #     AllocatedStorage: 100
+  #     DBName: 'RDSDBInstanceDevelopment0001'
+  #     DBParameterGroupName: !Ref RDSDBParameterGroupDevelopment0001
+  #     DBSubnetGroupName: !Ref RDSDBSubnetGroupDevelopment0001
+  #     DBInstanceClass: 'db.t2.small'
+  #     Engine: postgres
+  #     EngineVersion: '9.6.6'
+  #     MasterUsername: 'postgres'
+  #     MasterUserPassword: 'Shibuya1-Choume'
+  #     Tags: 
+  #       - Key: Name
+  #         Value: RDS::DBInstance::Development0001
+
+  RDSDBSubnetGroupDevelopment0001:
+    Type: AWS::RDS::DBSubnetGroup
     Properties: 
-      BlockDeviceMappings: 
-        - DeviceName: /dev/xvda
-          Ebs: 
-            VolumeSize: 8
-            VolumeType: gp2
-      ImageId: ami-2803ac4e
-      InstanceType: t2.micro
-      KeyName: my-key
-      SecurityGroupIds: 
-        - sg-46630a20
-      SubnetId: subnet-0bca3442
-      NetworkInterfaces: 
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          SubnetId: subnet-0bca3442
-      Tags: 
+      DBSubnetGroupDescription: 'postgres'
+      # DBSubnetGroupName: String
+      SubnetIds:
+        - !ImportValue EC2SubnetDevelopment0003
+        - !ImportValue EC2SubnetDevelopment0004
+      Tags:
         - Key: Name
-          Value: EC2::Instance::Development0001
+          Value: RDS::DBSubnetGroup::Development0001
+
+  RDSDBParameterGroupDevelopment0001:
+    Type: AWS::RDS::DBParameterGroup
+    Properties: 
+      Description: 'postgres'
+      Family: 'postgres9.6'
+      Parameters:
+        timezone: 'Asia/Tokyo'
+      Tags:
+        - Key: Name
+          Value: RDS::DBParameterGroup::Development0001
+
+# Outputs:
+#   RDSDBInstanceDevelopment0001:
+#     Value: !Ref RDSDBInstanceDevelopment0001
+#     Export:
+#       Name: RDSDBInstanceDevelopment0001

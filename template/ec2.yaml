@@ -4,20 +4,23 @@ Resources:
     Type: AWS::EC2::Instance
     Properties: 
       BlockDeviceMappings: 
-        - DeviceName: /dev/xvda
+        - DeviceName: '/dev/xvda'
           Ebs: 
             VolumeSize: 8
-            VolumeType: gp2
-      ImageId: ami-2803ac4e
-      InstanceType: t2.micro
-      KeyName: my-key
+            VolumeType: 'gp2'
+      ImageId: 'ami-92df37ed'
+      InstanceType: 't2.micro'
+      KeyName: 'MyLinuxmint'
       SecurityGroupIds: 
-        - sg-46630a20
-      SubnetId: subnet-0bca3442
-      NetworkInterfaces: 
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          SubnetId: subnet-0bca3442
+        - !ImportValue EC2SecurityGroupDevelopmentSSHFromPublic0001
+        - !ImportValue EC2SecurityGroupDevelopmentHTTPFromPublic0002
+      SubnetId: !ImportValue EC2SubnetDevelopment0001
       Tags: 
         - Key: Name
           Value: EC2::Instance::Development0001
+
+Outputs:
+  EC2InstanceDevelopment0001:
+    Value: !Ref EC2InstanceDevelopment0001
+    Export:
+      Name: EC2InstanceDevelopment0001

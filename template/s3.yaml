@@ -1,22 +1,28 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  S3Bucket481139621742OperationManual:
+  S3Bucket481139621742Development0001:
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: PublicRead
-      BucketName: 481139621742-operation-manual
+      BucketName: 481139621742-development0001
       WebsiteConfiguration:
         IndexDocument: index.html
 
-  S3BucketPolicy481139621742OperationManual:
+  S3BucketPolicy481139621742Development0001:
     Type: AWS::S3::BucketPolicy
     Properties: 
-      Bucket: !Ref S3Bucket481139621742OperationManual
+      Bucket: !Ref S3Bucket481139621742Development0001
       PolicyDocument: 
           Statement: 
             - Action: 
                 - "s3:GetObject"
               Effect: "Allow"
               Resource: 
-                  - "arn:aws:s3:::481139621742-operation-manual/*"
+                  - "arn:aws:s3:::481139621742-development0001/*"
               Principal: "*"
+
+Outputs:
+  S3Bucket481139621742Development0001:
+    Value: !Ref S3Bucket481139621742Development0001
+    Export:
+      Name: S3Bucket481139621742Development0001

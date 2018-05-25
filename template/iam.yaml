@@ -1,23 +1,26 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  EC2InstanceDevelopment0001:
-    Type: AWS::EC2::Instance
+  AWSIAMRoleDevelopment0001:
+    Type: AWS::IAM::Role
     Properties: 
-      BlockDeviceMappings: 
-        - DeviceName: /dev/xvda
-          Ebs: 
-            VolumeSize: 8
-            VolumeType: gp2
-      ImageId: ami-2803ac4e
-      InstanceType: t2.micro
-      KeyName: my-key
-      SecurityGroupIds: 
-        - sg-46630a20
-      SubnetId: subnet-0bca3442
-      NetworkInterfaces: 
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          SubnetId: subnet-0bca3442
-      Tags: 
-        - Key: Name
-          Value: EC2::Instance::Development0001
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: "Allow"
+            Principal: 
+              Service: 
+                - "ec2.amazonaws.com"
+            Action: 
+              - "sts:AssumeRole"
+      Path: "/"
+      ManagedPolicyArns:
+        - 文字列
+      Policies:
+        - Policies
+      RoleName: String
+
+Outputs:
+  AWSIAMRoleDevelopment0001:
+    Value: !Ref AWSIAMRoleDevelopment0001
+    Export:
+      Name: AWSIAMRoleDevelopment0001

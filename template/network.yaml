@@ -243,3 +243,64 @@ Resources:
   #     Tags:
   #       - Key: Name
   #         Value: EC2::NatGateway::Development0001
+
+Outputs:
+  EC2VPCDevelopment0001:
+    Value: !Ref EC2VPCDevelopment0001
+    Export:
+      Name: EC2VPCDevelopment0001
+
+  EC2SubnetDevelopment0001:
+    Value: !Ref EC2SubnetDevelopment0001
+    Export:
+      Name: EC2SubnetDevelopment0001
+
+  EC2SubnetDevelopment0002:
+    Value: !Ref EC2SubnetDevelopment0002
+    Export:
+      Name: EC2SubnetDevelopment0002
+
+  EC2SubnetDevelopment0003:
+    Value: !Ref EC2SubnetDevelopment0003
+    Export:
+      Name: EC2SubnetDevelopment0003
+
+  EC2SubnetDevelopment0004:
+    Value: !Ref EC2SubnetDevelopment0004
+    Export:
+      Name: EC2SubnetDevelopment0004
+
+  EC2SecurityGroupDevelopmentSSHFromPublic0001:
+    Value: !Ref EC2SecurityGroupDevelopmentSSHFromPublic0001
+    Export:
+      Name: EC2SecurityGroupDevelopmentSSHFromPublic0001
+
+  EC2SecurityGroupDevelopmentHTTPFromPublic0002:
+    Value: !Ref EC2SecurityGroupDevelopmentHTTPFromPublic0002
+    Export:
+      Name: EC2SecurityGroupDevelopmentHTTPFromPublic0002
+
+  EC2SecurityGroupDevelopmentPostgresFromPublic0003:
+    Value: !Ref EC2SecurityGroupDevelopmentPostgresFromPublic0003
+    Export:
+      Name: EC2SecurityGroupDevelopmentPostgresFromPublic0003
+
+  EC2SecurityGroupDevelopmentRDPFromPublic0004:
+    Value: !Ref EC2SecurityGroupDevelopmentRDPFromPublic0004
+    Export:
+      Name: EC2SecurityGroupDevelopmentRDPFromPublic0004
+
+  EC2SecurityGroupDevelopmentWinRMFromPublic0005:
+    Value: !Ref EC2SecurityGroupDevelopmentWinRMFromPublic0005
+    Export:
+      Name: EC2SecurityGroupDevelopmentWinRMFromPublic0005
+
+  EC2SecurityGroupDevelopmentJenkinsFromPublic0006:
+    Value: !Ref EC2SecurityGroupDevelopmentJenkinsFromPublic0006
+    Export:
+      Name: EC2SecurityGroupDevelopmentJenkinsFromPublic0006
+
+  EC2SecurityGroupDevelopmentMySQLFromPublic0007:
+    Value: !Ref EC2SecurityGroupDevelopmentMySQLFromPublic0007
+    Export:
+      Name: EC2SecurityGroupDevelopmentMySQLFromPublic0007

@@ -1,23 +1,245 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  EC2InstanceDevelopment0001:
-    Type: AWS::EC2::Instance
+  EC2VPCDevelopment0001:
+    Type: AWS::EC2::VPC
     Properties: 
-      BlockDeviceMappings: 
-        - DeviceName: /dev/xvda
-          Ebs: 
-            VolumeSize: 8
-            VolumeType: gp2
-      ImageId: ami-2803ac4e
-      InstanceType: t2.micro
-      KeyName: my-key
-      SecurityGroupIds: 
-        - sg-46630a20
-      SubnetId: subnet-0bca3442
-      NetworkInterfaces: 
-        - AssociatePublicIpAddress: true
-          DeviceIndex: 0
-          SubnetId: subnet-0bca3442
+      CidrBlock: 192.168.1.0/24
+      EnableDnsSupport: 'true'
+      EnableDnsHostnames: 'true'
+      InstanceTenancy: !Ref AWS::NoValue
       Tags: 
         - Key: Name
-          Value: EC2::Instance::Development0001
+          Value: EC2::VPC::Development0001
+
+  EC2InternetGatewayDevelopment0001:
+    Type: AWS::EC2::InternetGateway
+    Properties: 
+      Tags:
+        - Key: Name
+          Value: EC2::InternetGateway::Development0001
+
+  EC2VPCGatewayAttachmentDevelopment0001:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Properties: 
+      InternetGatewayId: !Ref EC2InternetGatewayDevelopment0001
+      VpcId: !Ref EC2VPCDevelopment0001
+      # VpnGatewayId: String
+
+  EC2RouteTableDevelopment0001:
+    Type: AWS::EC2::RouteTable
+    Properties: 
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::RouteTable::Development0001
+
+  EC2RouteDevelopment0001:
+    Type: AWS::EC2::Route
+    Properties: 
+      DestinationCidrBlock: 0.0.0.0/0
+      # DestinationIpv6CidrBlock: String
+      # EgressOnlyInternetGatewayId: String
+      GatewayId: !Ref EC2InternetGatewayDevelopment0001
+      # InstanceId: String
+      # NatGatewayId: String
+      # NetworkInterfaceId: String
+      RouteTableId: !Ref EC2RouteTableDevelopment0001
+      # VpcPeeringConnectionId: String
+
+  EC2SubnetDevelopment0001:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: '192.168.1.0/26'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0001
+
+  EC2SubnetDevelopment0002:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: '192.168.1.64/26'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0002
+
+  EC2SubnetDevelopment0003:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: '192.168.1.128/26'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'false'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0003
+
+  EC2SubnetDevelopment0004:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: '192.168.1.192/26'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'false'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0004
+
+  EC2SubnetRouteTableAssociationDevelopment0001:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref EC2RouteTableDevelopment0001
+      SubnetId: !Ref EC2SubnetDevelopment0001
+
+  EC2SubnetRouteTableAssociationDevelopment0002:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref EC2RouteTableDevelopment0001
+      SubnetId: !Ref EC2SubnetDevelopment0002
+
+  EC2SecurityGroupDevelopmentSSHFromPublic0001:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      # GroupName: String
+      GroupDescription: SSHFromPublic
+      # SecurityGroupEgress:
+      #   - Security Group Rule
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: 'tcp'
+          FromPort: 22
+          ToPort: 22
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::SecurityGroup::DevelopmentSSHFromPublic0001
+
+  EC2SecurityGroupDevelopmentHTTPFromPublic0002:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      # GroupName: String
+      GroupDescription: HTTPFromPublic
+      # SecurityGroupEgress:
+      #   - Security Group Rule
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: 'tcp'
+          FromPort: 80
+          ToPort: 80
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::SecurityGroup::DevelopmentHTTPFromPublic0002
+
+  EC2SecurityGroupDevelopmentPostgresFromPublic0003:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      # GroupName: String
+      GroupDescription: PostgresFromPublic
+      # SecurityGroupEgress:
+      #   - Security Group Rule
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: 'tcp'
+          FromPort: 5432
+          ToPort: 5432
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::SecurityGroup::DevelopmentPostgresFromPublic0003
+
+  EC2SecurityGroupDevelopmentRDPFromPublic0004:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      # GroupName: String
+      GroupDescription: RDPFromPublic
+      # SecurityGroupEgress:
+      #   - Security Group Rule
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: 'tcp'
+          FromPort: 3389
+          ToPort: 3389
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::SecurityGroup::DevelopmentRDPFromPublic0004
+
+  EC2SecurityGroupDevelopmentWinRMFromPublic0005:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      # GroupName: String
+      GroupDescription: WinRMFromPublic
+      # SecurityGroupEgress:
+      #   - Security Group Rule
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: 'tcp'
+          FromPort: 5985
+          ToPort: 5985
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::SecurityGroup::DevelopmentWinRMFromPublic0006
+
+  EC2SecurityGroupDevelopmentJenkinsFromPublic0006:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      # GroupName: String
+      GroupDescription: JenkinsFromPublic
+      # SecurityGroupEgress:
+      #   - Security Group Rule
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: 'tcp'
+          FromPort: 8080
+          ToPort: 8080
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::SecurityGroup::DevelopmentJenkinsFromPublic0007
+
+  EC2SecurityGroupDevelopmentMySQLFromPublic0007:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      # GroupName: String
+      GroupDescription: MySQLFromPublic
+      # SecurityGroupEgress:
+      #   - Security Group Rule
+      SecurityGroupIngress:
+        - CidrIp: 0.0.0.0/0
+          IpProtocol: 'tcp'
+          FromPort: 3306
+          ToPort: 3306
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: EC2::SecurityGroup::DevelopmentMySQLFromPublic0007
+
+  # EC2EIPDevelopment0001:
+  #   Type: AWS::EC2::EIP
+  #   Properties: 
+  #     # InstanceId: String
+  #     Domain: 'vpc'
+
+  # EC2NatGatewayDevelopment0001:
+  #   Type: AWS::EC2::NatGateway
+  #   Properties: 
+  #     AllocationId: !GetAtt EC2EIPDevelopment0001.AllocationId
+  #     SubnetId: !Ref EC2SubnetDevelopment0001
+  #     Tags:
+  #       - Key: Name
+  #         Value: EC2::NatGateway::Development0001

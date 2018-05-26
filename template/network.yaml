@@ -51,7 +51,7 @@ Resources:
     Properties: 
       # AssignIpv6AddressOnCreation: 'false'
       AvailabilityZone: ap-northeast-1a
-      CidrBlock: '192.168.1.0/26'
+      CidrBlock: '192.168.1.0/27'
       # Ipv6CidrBlock: 'String'
       MapPublicIpOnLaunch: 'true'
       VpcId: !Ref EC2VPCDevelopment0001
@@ -64,7 +64,7 @@ Resources:
     Properties: 
       # AssignIpv6AddressOnCreation: 'false'
       AvailabilityZone: ap-northeast-1c
-      CidrBlock: '192.168.1.64/26'
+      CidrBlock: '192.168.1.32/27'
       # Ipv6CidrBlock: 'String'
       MapPublicIpOnLaunch: 'true'
       VpcId: !Ref EC2VPCDevelopment0001
@@ -77,7 +77,7 @@ Resources:
     Properties: 
       # AssignIpv6AddressOnCreation: 'false'
       AvailabilityZone: ap-northeast-1a
-      CidrBlock: '192.168.1.128/26'
+      CidrBlock: '192.168.1.64/27'
       # Ipv6CidrBlock: 'String'
       MapPublicIpOnLaunch: 'false'
       VpcId: !Ref EC2VPCDevelopment0001
@@ -90,13 +90,65 @@ Resources:
     Properties: 
       # AssignIpv6AddressOnCreation: 'false'
       AvailabilityZone: ap-northeast-1c
-      CidrBlock: '192.168.1.192/26'
+      CidrBlock: '192.168.1.96/27'
       # Ipv6CidrBlock: 'String'
       MapPublicIpOnLaunch: 'false'
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
           Value: EC2::Subnet::Development0004
+
+  EC2SubnetDevelopment0005:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: '192.168.1.128/27'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0005
+
+  EC2SubnetDevelopment0006:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: '192.168.1.160/27'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'true'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0006
+
+  EC2SubnetDevelopment0007:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1a
+      CidrBlock: '192.168.1.192/27'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'false'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0007
+
+  EC2SubnetDevelopment0008:
+    Type: AWS::EC2::Subnet
+    Properties: 
+      # AssignIpv6AddressOnCreation: 'false'
+      AvailabilityZone: ap-northeast-1c
+      CidrBlock: '192.168.1.224/27'
+      # Ipv6CidrBlock: 'String'
+      MapPublicIpOnLaunch: 'false'
+      VpcId: !Ref EC2VPCDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Subnet::Development0008
 
   EC2SubnetRouteTableAssociationDevelopment0001:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -109,6 +161,18 @@ Resources:
     Properties: 
       RouteTableId: !Ref EC2RouteTableDevelopment0001
       SubnetId: !Ref EC2SubnetDevelopment0002
+
+  EC2SubnetRouteTableAssociationDevelopment0003:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref EC2RouteTableDevelopment0001
+      SubnetId: !Ref EC2SubnetDevelopment0005
+
+  EC2SubnetRouteTableAssociationDevelopment0004:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Properties: 
+      RouteTableId: !Ref EC2RouteTableDevelopment0001
+      SubnetId: !Ref EC2SubnetDevelopment0006
 
   EC2SecurityGroupDevelopmentSSHFromPublic0001:
     Type: AWS::EC2::SecurityGroup

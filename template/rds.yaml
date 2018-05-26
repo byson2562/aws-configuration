@@ -1,20 +1,25 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Resources:
-  # RDSDBInstanceDevelopment0001:
-  #   Type: AWS::RDS::DBInstance
-  #   Properties: 
-  #     AllocatedStorage: 100
-  #     DBName: 'RDSDBInstanceDevelopment0001'
-  #     DBParameterGroupName: !Ref RDSDBParameterGroupDevelopment0001
-  #     DBSubnetGroupName: !Ref RDSDBSubnetGroupDevelopment0001
-  #     DBInstanceClass: 'db.t2.small'
-  #     Engine: postgres
-  #     EngineVersion: '9.6.6'
-  #     MasterUsername: 'postgres'
-  #     MasterUserPassword: 'Shibuya1-Choume'
-  #     Tags: 
-  #       - Key: Name
-  #         Value: RDS::DBInstance::Development0001
+  RDSDBInstanceDevelopment0001:
+    Type: AWS::RDS::DBInstance
+    Properties: 
+      AllocatedStorage: 100
+      # CharacterSetName: ''
+      # DBSnapshotIdentifier: ''
+      DBName: 'RDSDBInstanceDevelopment0001'
+      DBInstanceIdentifier: 'rds-dbinstance-development-0001'
+      DBParameterGroupName: !Ref RDSDBParameterGroupDevelopment0001
+      DBSubnetGroupName: !Ref RDSDBSubnetGroupDevelopment0001
+      DBInstanceClass: 'db.t2.small'
+      Engine: postgres
+      EngineVersion: '9.6.6'
+      MultiAZ: 'true'
+      Port: 5432
+      MasterUsername: 'postgres'
+      MasterUserPassword: 'Shibuya1-Choume'
+      Tags: 
+        - Key: Name
+          Value: RDS::DBInstance::Development0001
 
   RDSDBSubnetGroupDevelopment0001:
     Type: AWS::RDS::DBSubnetGroup

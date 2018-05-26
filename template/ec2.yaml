@@ -6,7 +6,7 @@ Resources:
       BlockDeviceMappings: 
         - DeviceName: '/dev/xvda'
           Ebs: 
-            VolumeSize: 8
+            VolumeSize: 30
             VolumeType: 'gp2'
       ImageId: 'ami-92df37ed'
       InstanceType: 't2.micro'
@@ -18,6 +18,26 @@ Resources:
       Tags: 
         - Key: Name
           Value: EC2::Instance::Development0001
+
+  EC2InstanceDevelopment0002:
+    Type: AWS::EC2::Instance
+    Properties: 
+      BlockDeviceMappings: 
+        - DeviceName: '/dev/xvda'
+          Ebs: 
+            VolumeSize: 30
+            VolumeType: 'gp2'
+      ImageId: 'ami-07f2a061'
+      InstanceType: 't2.micro'
+      KeyName: 'MyLinuxmint'
+      SecurityGroupIds: 
+        - !ImportValue EC2SecurityGroupDevelopmentHTTPFromPublic0002
+        - !ImportValue EC2SecurityGroupDevelopmentRDPFromPublic0004
+        - !ImportValue EC2SecurityGroupDevelopmentWinRMFromPublic0005
+      SubnetId: !ImportValue EC2SubnetDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: EC2::Instance::Development0002
 
 Outputs:
   EC2InstanceDevelopment0001:

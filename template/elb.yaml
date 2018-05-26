@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  ElasticLoadBalancingV2LoadBalancerDevelopment0001:
+    Type: AWS::ElasticLoadBalancingV2::LoadBalancer
+    Properties: 
+      LoadBalancerAttributes:
+        - LoadBalancerAttributes
+      Name: String
+      Scheme: String
+      SecurityGroups:
+        - !ImportValue EC2SecurityGroupDevelopmentHTTPFromPublic0002
+      # SubnetMappings:
+      #   - SubnetMapping
+      Subnets:
+        - !ImportValue EC2SubnetDevelopment0001
+        - !ImportValue EC2SubnetDevelopment0002
+      Tags:
+        - Resource Tag
+      IpAddressType: String
+      Tags: 
+        - Key: Name
+          Value: ElasticLoadBalancingV2::LoadBalancer::Development0001
+
+Outputs:
+  EC2InstanceDevelopment0001:
+    Value: !Ref EC2InstanceDevelopment0001
+    Export:
+      Name: EC2InstanceDevelopment0001

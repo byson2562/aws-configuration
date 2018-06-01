@@ -17,7 +17,7 @@ Resources:
       SubnetId: !ImportValue EC2SubnetDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Instance::Development0001
+          Value: Development0001
 
   EC2InstanceDevelopment0002:
     Type: AWS::EC2::Instance
@@ -37,7 +37,7 @@ Resources:
       SubnetId: !ImportValue EC2SubnetDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Instance::Development0002
+          Value: Development0002
 
 Outputs:
   EC2InstanceDevelopment0001:

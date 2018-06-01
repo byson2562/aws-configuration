@@ -6,17 +6,19 @@ Resources:
       AllocatedStorage: 100
       # CharacterSetName: ''
       # DBSnapshotIdentifier: ''
-      DBName: 'RDSDBInstanceDevelopment0001'
+      DBName: 'development'
       DBInstanceIdentifier: 'rds-dbinstance-development-0001'
       DBParameterGroupName: !Ref RDSDBParameterGroupDevelopment0001
       DBSubnetGroupName: !Ref RDSDBSubnetGroupDevelopment0001
       DBInstanceClass: 'db.t2.small'
-      Engine: postgres
-      EngineVersion: '9.6.6'
-      MultiAZ: 'true'
-      Port: 5432
-      MasterUsername: 'postgres'
+      Engine: mysql
+      EngineVersion: '5.6.39'
+      MultiAZ: 'false'
+      Port: 3306
+      MasterUsername: 'byson'
       MasterUserPassword: 'Shibuya1-Choume'
+      VPCSecurityGroups: 
+        - !ImportValue EC2SecurityGroupDevelopmentMySQLFromPublic0007
       Tags: 
         - Key: Name
           Value: RDS::DBInstance::Development0001
@@ -24,25 +26,25 @@ Resources:
   RDSDBSubnetGroupDevelopment0001:
     Type: AWS::RDS::DBSubnetGroup
     Properties: 
-      DBSubnetGroupDescription: 'postgres'
+      DBSubnetGroupDescription: 'mysql'
       # DBSubnetGroupName: String
       SubnetIds:
         - !ImportValue EC2SubnetDevelopment0003
         - !ImportValue EC2SubnetDevelopment0004
       Tags:
         - Key: Name
-          Value: RDS::DBSubnetGroup::Development0001
+          Value: Development0001
 
   RDSDBParameterGroupDevelopment0001:
     Type: AWS::RDS::DBParameterGroup
     Properties: 
-      Description: 'postgres'
-      Family: 'postgres9.6'
-      Parameters:
-        timezone: 'Asia/Tokyo'
+      Description: 'MySQL'
+      Family: 'MySQL5.6'
+      # Parameters:
+        # timezone: 'Asia/Tokyo'
       Tags:
         - Key: Name
-          Value: RDS::DBParameterGroup::Development0001
+          Value: Development0001
 
 # Outputs:
 #   RDSDBInstanceDevelopment0001:

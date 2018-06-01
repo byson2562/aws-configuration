@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  EC2InstanceDevelopment0001:
+    Type: AWS::EC2::Instance
+    Properties: 
+      BlockDeviceMappings: 
+        - DeviceName: '/dev/xvda'
+          Ebs: 
+            VolumeSize: 30
+            VolumeType: 'gp2'
+      ImageId: 'ami-92df37ed'
+      InstanceType: 't2.micro'
+      KeyName: 'MyLinuxmint'
+      SecurityGroupIds: 
+        - !ImportValue EC2SecurityGroupDevelopmentSSHFromPublic0001
+        - !ImportValue EC2SecurityGroupDevelopmentHTTPFromPublic0002
+      SubnetId: !ImportValue EC2SubnetDevelopment0001
+      Tags: 
+        - Key: Name
+          Value: Development0001

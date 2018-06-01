@@ -9,14 +9,14 @@ Resources:
       InstanceTenancy: !Ref AWS::NoValue
       Tags: 
         - Key: Name
-          Value: EC2::VPC::Development0001
+          Value: Development0001
 
   EC2InternetGatewayDevelopment0001:
     Type: AWS::EC2::InternetGateway
     Properties: 
       Tags:
         - Key: Name
-          Value: EC2::InternetGateway::Development0001
+          Value: Development0001
 
   EC2VPCGatewayAttachmentDevelopment0001:
     Type: AWS::EC2::VPCGatewayAttachment
@@ -31,7 +31,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::RouteTable::Development0001
+          Value: Development0001
 
   EC2RouteDevelopment0001:
     Type: AWS::EC2::Route
@@ -57,7 +57,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0001
+          Value: Development0001
 
   EC2SubnetDevelopment0002:
     Type: AWS::EC2::Subnet
@@ -70,7 +70,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0002
+          Value: Development0002
 
   EC2SubnetDevelopment0003:
     Type: AWS::EC2::Subnet
@@ -83,7 +83,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0003
+          Value: Development0003
 
   EC2SubnetDevelopment0004:
     Type: AWS::EC2::Subnet
@@ -96,7 +96,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0004
+          Value: Development0004
 
   EC2SubnetDevelopment0005:
     Type: AWS::EC2::Subnet
@@ -109,7 +109,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0005
+          Value: Development0005
 
   EC2SubnetDevelopment0006:
     Type: AWS::EC2::Subnet
@@ -122,7 +122,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0006
+          Value: Development0006
 
   EC2SubnetDevelopment0007:
     Type: AWS::EC2::Subnet
@@ -135,7 +135,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0007
+          Value: Development0007
 
   EC2SubnetDevelopment0008:
     Type: AWS::EC2::Subnet
@@ -148,7 +148,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags: 
         - Key: Name
-          Value: EC2::Subnet::Development0008
+          Value: Development0008
 
   EC2SubnetRouteTableAssociationDevelopment0001:
     Type: AWS::EC2::SubnetRouteTableAssociation
@@ -189,7 +189,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::SecurityGroup::DevelopmentSSHFromPublic0001
+          Value: DevelopmentSSHFromPublic0001
 
   EC2SecurityGroupDevelopmentHTTPFromPublic0002:
     Type: AWS::EC2::SecurityGroup
@@ -206,7 +206,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::SecurityGroup::DevelopmentHTTPFromPublic0002
+          Value: DevelopmentHTTPFromPublic0002
 
   EC2SecurityGroupDevelopmentPostgresFromPublic0003:
     Type: AWS::EC2::SecurityGroup
@@ -223,7 +223,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::SecurityGroup::DevelopmentPostgresFromPublic0003
+          Value: DevelopmentPostgresFromPublic0003
 
   EC2SecurityGroupDevelopmentRDPFromPublic0004:
     Type: AWS::EC2::SecurityGroup
@@ -240,7 +240,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::SecurityGroup::DevelopmentRDPFromPublic0004
+          Value: DevelopmentRDPFromPublic0004
 
   EC2SecurityGroupDevelopmentWinRMFromPublic0005:
     Type: AWS::EC2::SecurityGroup
@@ -257,7 +257,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::SecurityGroup::DevelopmentWinRMFromPublic0006
+          Value: DevelopmentWinRMFromPublic0006
 
   EC2SecurityGroupDevelopmentJenkinsFromPublic0006:
     Type: AWS::EC2::SecurityGroup
@@ -274,7 +274,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::SecurityGroup::DevelopmentJenkinsFromPublic0007
+          Value: DevelopmentJenkinsFromPublic0007
 
   EC2SecurityGroupDevelopmentMySQLFromPublic0007:
     Type: AWS::EC2::SecurityGroup
@@ -291,7 +291,7 @@ Resources:
       VpcId: !Ref EC2VPCDevelopment0001
       Tags:
         - Key: Name
-          Value: EC2::SecurityGroup::DevelopmentMySQLFromPublic0007
+          Value: DevelopmentMySQLFromPublic0007
 
   # EC2EIPDevelopment0001:
   #   Type: AWS::EC2::EIP
@@ -306,7 +306,7 @@ Resources:
   #     SubnetId: !Ref EC2SubnetDevelopment0001
   #     Tags:
   #       - Key: Name
-  #         Value: EC2::NatGateway::Development0001
+  #         Value: Development0001
 
 Outputs:
   EC2VPCDevelopment0001:

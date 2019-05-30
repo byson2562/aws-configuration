@@ -3,26 +3,68 @@ Resources:
   ElasticLoadBalancingV2LoadBalancerDevelopment0001:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties: 
-      LoadBalancerAttributes:
-        - LoadBalancerAttributes
-      Name: String
-      Scheme: String
+      # LoadBalancerAttributes:
+        # - access_logs.s3.enabled: 'false'
+          # access_logs.s3.bucket: ''
+          # access_logs.s3.prefix: ''
+          # idle_timeout.timeout_seconds: '60'
+          # routing.http2.enabled: 'true'
+      Name: 'Development0001'
+      Scheme: 'internet-facing'
       SecurityGroups:
+        - !ImportValue EC2SecurityGroupDevelopmentSSHFromPublic0001
         - !ImportValue EC2SecurityGroupDevelopmentHTTPFromPublic0002
       # SubnetMappings:
       #   - SubnetMapping
       Subnets:
         - !ImportValue EC2SubnetDevelopment0001
         - !ImportValue EC2SubnetDevelopment0002
+      Type: application
+      IpAddressType: 'ipv4'
       Tags:
-        - Resource Tag
-      IpAddressType: String
-      Tags: 
         - Key: Name
-          Value: ElasticLoadBalancingV2::LoadBalancer::Development0001
+          Value: Development0001
 
-Outputs:
-  EC2InstanceDevelopment0001:
-    Value: !Ref EC2InstanceDevelopment0001
-    Export:
-      Name: EC2InstanceDevelopment0001
+  ElasticLoadBalancingV2TargetGroupDevelopment0001:
+    Type: AWS::ElasticLoadBalancingV2::TargetGroup
+    Properties: 
+      # HealthCheckIntervalSeconds: Integer
+      # HealthCheckPath: String
+      # HealthCheckPort: String
+      # HealthCheckProtocol: String
+      # HealthCheckTimeoutSeconds: Integer
+      # HealthyThresholdCount: Integer
+      Matcher: 
+        HttpCode: '200'
+      Name: 'Development0001'
+      Port: 80
+      Protocol: 'HTTP'
+      # TargetGroupAttributes:
+      #   - deregistration_delay.timeout_seconds: ''
+      #     slow_start.duration_seconds: ''
+      #     stickiness.enabled: ''
+      #     stickiness.type: ''
+      #     stickiness.lb_cookie.duration_seconds: ''
+      Targets:
+        - Id: !ImportValue EC2InstanceDevelopment0001
+          # AvailabilityZone: String
+          # Port: Integer
+      TargetType: 'instance'
+      # UnhealthyThresholdCount: Integer
+      VpcId: !ImportValue EC2VPCDevelopment0001
+      Tags:
+        - Key: Name
+          Value: Development0001
+
+  ElasticLoadBalancingV2ListenerDevelopment0001:
+    Type: AWS::ElasticLoadBalancingV2::Listener
+    Properties: 
+      # Certificates:
+      #   - Certificate
+      DefaultActions:
+        - TargetGroupArn: !Ref ElasticLoadBalancingV2TargetGroupDevelopment0001
+          Type: 'forward'
+      LoadBalancerArn: !Ref ElasticLoadBalancingV2LoadBalancerDevelopment0001
+      Port: 80
+      Protocol: 'HTTP'
+      # SslPolicy: String
